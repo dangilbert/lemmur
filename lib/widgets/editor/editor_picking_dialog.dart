@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../util/extensions/api.dart';
 import '../../../widgets/avatar.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../stores/accounts_store.dart';
 import 'editor_toolbar_store.dart';
 
@@ -44,9 +44,9 @@ class PickPersonDialog extends StatelessWidget {
         },
         onSuggestionSelected: (suggestion) =>
             Navigator.of(context).pop(suggestion),
-        loadingBuilder: (context) => Row(
+        loadingBuilder: (context) => const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Padding(
               padding: EdgeInsets.all(16),
               child: CircularProgressIndicator.adaptive(),
@@ -105,9 +105,9 @@ class PickCommunityDialog extends StatelessWidget {
         },
         onSuggestionSelected: (suggestion) =>
             Navigator.of(context).pop(suggestion),
-        loadingBuilder: (context) => Row(
+        loadingBuilder: (context) => const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Padding(
               padding: EdgeInsets.all(16),
               child: CircularProgressIndicator.adaptive(),

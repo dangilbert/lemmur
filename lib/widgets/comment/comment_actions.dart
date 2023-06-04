@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lemmy_api_client/v3.dart';
 
 import '../../hooks/logged_in_action.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../util/goto.dart';
 import '../../util/observer_consumers.dart';
 import '../tile_action.dart';

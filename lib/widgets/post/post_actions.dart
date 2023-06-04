@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import '../../l10n/gen/l10n.dart';
 
-import '../../l10n/l10n.dart';
 import '../../util/icons.dart';
 import '../../util/observer_consumers.dart';
 import '../../util/share.dart';

@@ -3,5 +3,6 @@
     "*.arb": "json"
   },
   "dart.showTodos": false,
-  "xml.format.preserveAttributeLineBreaks": true
+  "xml.format.preserveAttributeLineBreaks": true,
+  "cmake.configureOnOpen": false
 }

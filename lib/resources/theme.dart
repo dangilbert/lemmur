@@ -18,7 +18,6 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
       },
     ),
     scaffoldBackgroundColor: maybeAmoledColor,
-    backgroundColor: maybeAmoledColor,
     canvasColor: maybeAmoledColor,
     cardColor: maybeAmoledColor,
     splashColor: maybeAmoledColor,
@@ -32,7 +31,7 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
       shadowColor: Colors.transparent,
       centerTitle: true,
       iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
-      titleTextStyle: theme.textTheme.headline6
+      titleTextStyle: theme.textTheme.titleLarge
           ?.copyWith(fontSize: 20, fontWeight: FontWeight.w500),
     ),
     tabBarTheme: TabBarTheme(
@@ -62,8 +61,9 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: theme.colorScheme.secondary,
-        onPrimary: textColorBasedOnBackground(theme.colorScheme.secondary),
+        foregroundColor:
+            textColorBasedOnBackground(theme.colorScheme.secondary),
+        backgroundColor: theme.colorScheme.secondary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -71,7 +71,7 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        primary: theme.colorScheme.onSurface,
+        foregroundColor: theme.colorScheme.onSurface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -79,7 +79,7 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: TextButton.styleFrom(
-        primary: theme.colorScheme.onSurface,
+        foregroundColor: theme.colorScheme.onSurface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -90,6 +90,7 @@ ThemeData _themeFactory({bool dark = false, bool amoled = false}) {
         borderRadius: BorderRadius.circular(10),
       ),
     ),
+    // colorScheme: ColorScheme(background: maybeAmoledColor),
   );
 }
 

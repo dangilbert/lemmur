@@ -4,7 +4,7 @@ import 'package:lemmy_api_client/v3.dart';
 
 import '../hooks/delayed_loading.dart';
 import '../hooks/logged_in_action.dart';
-import '../l10n/l10n.dart';
+import '../l10n/gen/l10n.dart';
 import 'editor/editor.dart';
 import 'markdown_mode_icon.dart';
 import 'markdown_text.dart';

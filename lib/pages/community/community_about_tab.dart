@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lemmy_api_client/v3.dart';
 
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../stores/accounts_store.dart';
 import '../../util/extensions/spaced.dart';
 import '../../util/observer_consumers.dart';
@@ -94,7 +94,7 @@ class CommmunityAboutTab extends StatelessWidget {
             title: Center(
               child: Text(
                 L10n.of(context).modlog,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             onTap: () => Navigator.of(context).push(

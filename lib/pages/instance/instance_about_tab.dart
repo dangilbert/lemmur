@@ -128,7 +128,7 @@ class InstanceAboutTab extends HookWidget {
                 title: Center(
                   child: Text(
                     l10n.trending_communities,
-                    style: theme.textTheme.headline6?.copyWith(fontSize: 18),
+                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
                   ),
                 ),
               ),
@@ -169,7 +169,7 @@ class InstanceAboutTab extends HookWidget {
                 title: Center(
                   child: Text(
                     l10n.admins,
-                    style: theme.textTheme.headline6?.copyWith(fontSize: 18),
+                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
                   ),
                 ),
               ),

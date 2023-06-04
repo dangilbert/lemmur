@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lemmy_api_client/v3.dart';
 
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../stores/accounts_store.dart';
 import '../../url_launcher.dart';
 import '../../util/observer_consumers.dart';

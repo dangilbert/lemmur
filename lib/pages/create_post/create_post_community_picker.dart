@@ -4,7 +4,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:lemmy_api_client/v3.dart';
 import 'package:wc_form_validators/wc_form_validators.dart';
 
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../util/async_store_listener.dart';
 import '../../util/extensions/api.dart';
 import '../../util/extensions/context.dart';
@@ -88,9 +88,9 @@ class CreatePostCommunityPicker extends HookWidget {
                 ),
               ),
             ),
-            loadingBuilder: (context) => Row(
+            loadingBuilder: (context) => const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.all(8),
                   child: CircularProgressIndicator.adaptive(),

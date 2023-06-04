@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../hooks/delayed_loading.dart';
 import '../../hooks/stores.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../stores/accounts_store.dart';
 import '../../stores/config_store.dart';
 import '../../url_launcher.dart';

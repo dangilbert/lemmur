@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../hooks/stores.dart';
-import '../l10n/l10n.dart';
+import '../l10n/gen/l10n.dart';
 import '../util/goto.dart';
 import '../widgets/radio_picker.dart';
 import 'search_results.dart';
@@ -58,7 +58,7 @@ class SearchTab extends HookWidget {
             children: [
               Expanded(
                 child: Text('instance:',
-                    style: Theme.of(context).textTheme.subtitle1),
+                    style: Theme.of(context).textTheme.titleMedium),
               ),
               Expanded(
                 child: RadioPicker<String>(

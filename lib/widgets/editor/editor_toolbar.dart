@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../hooks/logged_in_action.dart';
-import '../../l10n/l10n.dart';
+import '../../l10n/gen/l10n.dart';
 import '../../markdown_formatter.dart';
 import '../../resources/links.dart';
 import '../../url_launcher.dart';

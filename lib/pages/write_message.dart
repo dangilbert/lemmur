@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lemmy_api_client/v3.dart';
 
 import '../hooks/logged_in_action.dart';
-import '../l10n/l10n.dart';
+import '../l10n/gen/l10n.dart';
 import '../util/extensions/api.dart';
 import '../widgets/markdown_mode_icon.dart';
 import '../widgets/markdown_text.dart';
