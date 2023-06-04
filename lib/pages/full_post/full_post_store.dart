@@ -50,23 +50,23 @@ abstract class _FullPostStore with Store {
     sorting = sort;
   }
 
-  @computed
-  List<CommentTree>? get commentTree {
-    if (fullPostView == null) return null;
-    return CommentTree.fromList(fullPostView!.comments);
-  }
+  // @computed
+  // List<CommentTree>? get commentTree {
+  //   if (fullPostView == null) return null;
+  //   return CommentTree.fromList(fullPostView!.comments ?? []);
+  // }
 
-  @computed
-  List<CommentTree>? get sortedCommentTree {
-    return commentTree?..sortBy(sorting);
-  }
+  // @computed
+  // List<CommentTree>? get sortedCommentTree {
+  //   return commentTree?..sortBy(sorting);
+  // }
 
   @computed
   PostView? get postView => postStore?.postView;
 
-  @computed
-  Iterable<CommentView>? get comments =>
-      fullPostView?.comments.followedBy(newComments);
+  // @computed
+  // Iterable<CommentView>? get comments =>
+  //     (fullPostView?.comments ?? []).followedBy(newComments);
 
   @action
   Future<void> refresh([Jwt? token]) async {

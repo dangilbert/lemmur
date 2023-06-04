@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:lemmy_api_client/v3.dart';
 
 import '../../comment_tree.dart';
+import '../../hooks/stores.dart';
 import '../../l10n/l10n.dart';
 import '../../stores/accounts_store.dart';
 import '../../util/observer_consumers.dart';
@@ -18,7 +21,7 @@ class _SortSelection {
 }
 
 /// Manages comments section, sorts them
-class CommentSection extends StatelessWidget {
+class CommentSection extends HookWidget {
   static const sortPairs = {
     CommentSortType.hot: _SortSelection(Icons.whatshot, L10nStrings.hot),
     CommentSortType.new_: _SortSelection(Icons.new_releases, L10nStrings.new_),
@@ -31,6 +34,8 @@ class CommentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accountStore = useAccountsStore();
+
     return ObserverBuilder<FullPostStore>(
       builder: (context, store) {
         final fullPostView = store.fullPostView;
@@ -55,79 +60,97 @@ class CommentSection extends StatelessWidget {
           }
         }
 
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Row(
+        return FutureBuilder(
+            builder: (context, data) {
+              final comments = data.data as List<CommentView>?;
+
+              return Column(
                 children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      showBottomModal(
-                        title: 'sort by',
-                        context: context,
-                        builder: (context) => Column(
-                          children: [
-                            for (final e in sortPairs.entries)
-                              ListTile(
-                                leading: Icon(e.value.icon),
-                                title: Text(e.value.term.tr(context)),
-                                trailing: store.sorting == e.key
-                                    ? const Icon(Icons.check)
-                                    : null,
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  store.updateSorting(e.key);
-                                },
-                              )
-                          ],
-                        ),
-                      );
-                    },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     child: Row(
                       children: [
-                        Text(sortPairs[store.sorting]!.term.tr(context)),
-                        const Icon(Icons.arrow_drop_down),
+                        OutlinedButton(
+                          onPressed: () {
+                            showBottomModal(
+                              title: 'sort by',
+                              context: context,
+                              builder: (context) => Column(
+                                children: [
+                                  for (final e in sortPairs.entries)
+                                    ListTile(
+                                      leading: Icon(e.value.icon),
+                                      title: Text(e.value.term.tr(context)),
+                                      trailing: store.sorting == e.key
+                                          ? const Icon(Icons.check)
+                                          : null,
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        store.updateSorting(e.key);
+                                      },
+                                    )
+                                ],
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Text(sortPairs[store.sorting]!.term.tr(context)),
+                              const Icon(Icons.arrow_drop_down),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
                       ],
                     ),
                   ),
-                  const Spacer(),
+                  // sorting menu goes here
+                  if (comments?.isEmpty ?? true)
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50),
+                      child: Text(
+                        'no comments yet',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    )
+                  else ...[
+                    for (final com in store.newComments)
+                      CommentWidget.fromCommentView(
+                        com,
+                        detached: false,
+                        key: ValueKey(com),
+                      ),
+                    if (store.sorting == CommentSortType.chat)
+                      for (final com in comments ?? [])
+                        CommentWidget.fromCommentView(
+                          com,
+                          detached: false,
+                          key: ValueKey(com),
+                        )
+                    else
+                      for (final com in CommentTree.fromList(comments!))
+                        CommentWidget(
+                          com,
+                          key: ValueKey(com),
+                        ),
+                    const BottomSafe.fab(),
+                  ]
                 ],
+              );
+            },
+            future: LemmyApiV3(fullPostView.instanceHost).run(
+              GetComments(
+                type: CommentListingType.all,
+                // sort: store.sorting.name,
+                // savedOnly: false,
+                page: 1,
+                limit: 100,
+                // communityId: fullPostView.postView.post.communityId,
+                postId: fullPostView.postView.post.id,
+                auth: accountStore.defaultUserData?.jwt.raw,
               ),
-            ),
-            // sorting menu goes here
-            if (fullPostView.comments.isEmpty)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 50),
-                child: Text(
-                  'no comments yet',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              )
-            else ...[
-              for (final com in store.newComments)
-                CommentWidget.fromCommentView(
-                  com,
-                  detached: false,
-                  key: ValueKey(com),
-                ),
-              if (store.sorting == CommentSortType.chat)
-                for (final com in fullPostView.comments)
-                  CommentWidget.fromCommentView(
-                    com,
-                    detached: false,
-                    key: ValueKey(com),
-                  )
-              else
-                for (final com in store.sortedCommentTree!)
-                  CommentWidget(
-                    com,
-                    key: ValueKey(com),
-                  ),
-              const BottomSafe.fab(),
-            ]
-          ],
-        );
+            ));
       },
     );
   }
